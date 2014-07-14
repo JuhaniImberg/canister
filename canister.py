@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from bottle import response, request, run, template, static_file, debug, get, post, request, redirect
 from redis import StrictRedis
 from hashids import Hashids
