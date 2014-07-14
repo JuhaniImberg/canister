@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from bottle import response, request, run, template, static_file, debug, get, post, request, redirect
+from bottle import (response, request, run, template, static_file,
+                    debug, get, post, request, redirect)
 from redis import StrictRedis
 from hashids import Hashids
 from config import config
@@ -8,13 +9,15 @@ import re
 
 redis = StrictRedis(host=config["redis-host"], port=config["redis-port"], db=0)
 hashids = Hashids(salt=config["hashids-salt"])
-urlre = re.compile("^(https?):\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|]")
-namere = re.compile("([a-zA-Z_\-+]){1,32}")
+urlre = re.compile(config["regex-url"])
+namere = re.compile(config["regex-name"])
 
 def set_cookie(name, value):
+    """Shorthand to setting a very short lived cookie"""
     response.set_cookie(name, value, max_age=5)
 
 def get_cookie(name, value):
+    """Get a cookie or return the value. Expires the cookie if used"""
     if request.get_cookie(name):
         response.set_cookie(name, "", expires=0)
         return request.get_cookie(name)
@@ -22,12 +25,11 @@ def get_cookie(name, value):
         return value
 
 def error(value):
+    """Sets a error cookie"""
     set_cookie("error", value)
 
 @get("/")
 def route_index():
-    """
-    """
     url = request.get_cookie("url")
     error = request.get_cookie("error")
     last_url = last_error = None
@@ -44,28 +46,39 @@ def route_index():
 
 @post("/")
 def route_add():
+    """
+    This route does most of the heavy work.
+    """
+    # Extract parameters from form
     url = request.forms.get("url")
     name = request.forms.get("name")
+    # Set those as cookies if we come back later
     set_cookie("form_url", url)
     set_cookie("form_name", name)
+    # If there is no url report it as a error
     if not url or not urlre.match(url):
         error("That's not a URL.")
         return redirect("/")
+    # If the name has been specified
     if name and len(name) > 0:
         prev = redis.get("canister:"+name)
-        if prev or name == "/style":
+        # If there is a previous entry with that name report it
+        if prev or name == "style":
             error("That name is already in use.")
             return redirect("/")
+        # If the name doesn't match the regex-name report it
         if name != namere.match(name).group(0):
             error("That name doesn't match to ([a-zA-Z_\-+]){1,32}")
             return redirect("/")
     else:
+        # Name wasn't spesified so find another name
         while 1:
             num = redis.incr("canister:num")
             name = hashids.encrypt(num)
             if not redis.exists(name):
                 break
 
+    # Finally add the url to redis
     redis.set("canister:"+name, url)
 
     set_cookie("url", config["base-url"] + name)
@@ -73,17 +86,23 @@ def route_add():
 
 @get("/style")
 def route_style():
+    """
+    Returns the stylesheet
+    """
     return static_file("style.css", root="static")
 
 @get("/<name>")
 def route_name(name):
     """
-    This route catches all other routes
+    This route catches all other routes.
     """
     url = redis.get("canister:"+name)
     if url:
+        # If we find a match, increase it's click count
         redis.incr("canister:"+ name +":clicks")
+        # And redirect to that url
         return redirect(url.decode("utf-8"))
+    # Else show a error
     error("No such entry.")
     return redirect("/")
 
