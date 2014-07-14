@@ -6,7 +6,7 @@ A very simple URL shortening app.
 installation & running
 ======================
 
-    Python 3.3+
+    Python 2.7+ or Python 3.3+
     redis
     pip install -r requirements.txt
     edit config.py to fit your setup
