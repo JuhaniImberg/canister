@@ -10,7 +10,7 @@ installation & running
     redis
     pip install -r requirements.txt
     edit config.py to fit your setup
-    python3 canister.py
+    python canister.py
 
 todo
 ====
