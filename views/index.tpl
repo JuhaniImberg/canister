@@ -30,8 +30,8 @@
     %end
         <h2>New</h2>
         <form class="inputs" method="POST">
-            <input autofocus class="input" type="text" name="url" id="url" placeholder="http://example.tld">
-            <input class="input" type="text" name="name" id="name" placeholder="cool_name (optional)">
+            <input autofocus class="input" type="text" name="url" id="url" placeholder="http://example.tld" value="{{ form_url }}">
+            <input class="input" type="text" name="name" id="name" placeholder="cool_name (optional)" value="{{ form_name }}">
             <button type="submit" class="input" id="submit">Create</button>
         </form>
     </div>
