@@ -1,0 +1,119 @@
+html {
+    height: 100%;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    font-size: 16px;
+    color: #222;
+}
+
+.world {
+    width: 40rem;
+    padding: 0 1rem 1rem;
+    margin: 2rem auto 0;
+    background-color: #f5f5f5;
+    border: thin solid #e3e3e3;
+    border-radius: 4px;
+}
+
+h2 {
+    margin: 1rem;
+    padding: 0;
+    text-align: center;
+}
+
+.inputs .input {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 0.75rem;
+    margin: 0;
+    background-color: white;
+    border: thin solid #bbb;
+    border-radius: 0;
+    color: #555;
+}
+
+.inputs>.input:first-child {
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+}
+
+.inputs>.input:last-child {
+    border-radius: 0 0 4px 4px;
+    border-top: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.inputs>button:active {
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15) inset,0 0 6px rgba(0,0,0,.2) inset;
+}
+
+.inputs>button {
+    background-color: #0078e7 !important;
+    color: white !important;
+    border-color: #005FCE !important;
+
+}
+
+.last {
+    border: thin solid #bbb;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.last>ul {
+    padding: 0;
+    margin: 0;
+}
+
+.last>ul>li {
+    margin: 0;
+    padding: 1rem;
+    list-style: none;
+    font-size: 1.25rem;
+}
+
+.last>ul>li>a {
+    display: inline-block;
+    max-width: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.last>ul>li:not(:last-child) {
+    border-bottom: thin solid #e3e3e3;
+}
+
+.last>ul>li>.right {
+    float: right;
+}
+
+.clearfix:after { 
+    content: "."; 
+    visibility: hidden; 
+    display: block; 
+    height: 0; 
+    clear: both;
+}
+
+@media all and (max-width: 42rem) {
+    .world {
+        width: calc(100% - 2rem);
+        margin: 2rem 1rem 0;
+    }
+}
