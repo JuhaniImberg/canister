@@ -33,6 +33,11 @@ h2 {
     text-align: center;
 }
 
+h2>a {
+    color: #222;
+    text-decoration: none;
+}
+
 .inputs .input {
     width: 100%;
     font-size: 1.25rem;
@@ -69,6 +74,13 @@ button {
 
 }
 
+.tos {
+    border: thin solid #bbb;
+    background-color: white;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
 .last {
     border: thin solid #bbb;
     background-color: white;
@@ -99,8 +111,18 @@ button {
     border-bottom: thin solid #e3e3e3;
 }
 
-.last>ul>li>.right {
+.right {
     float: right;
+}
+
+footer {
+    margin: 0.5rem 0 0 0;
+    color: #555;
+}
+
+footer a {
+    color: #555;
+    text-decoration: none;
 }
 
 .clearfix:after { 

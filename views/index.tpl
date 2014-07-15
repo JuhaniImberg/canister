@@ -1,13 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>canister</title>
-    <link rel="stylesheet" type="text/css" href="/style">
-</head>
-<body>
-    <div class="world">
+%include('header.tpl', pretty=pretty)
     %if last_error:
         <h2>An error occured</h2>
         <div class="last">
@@ -23,17 +14,21 @@
         <div class="last">
             <ul>
                 <li>
-                    <a href="{{ last_url }}">{{ last_url }}</a>
+                    <a href="{{ base_url }}{{ last_url }}">{{ base_url }}{{ last_url }}</a>
+                    <a target="_blank" class="right" href="{{ base_url }}i/qr/{{ last_url }}">QR</a>
                 </li>
             </ul>
         </div>
     %end
         <h2>New</h2>
         <form class="inputs" method="POST">
-            <input autofocus class="input" type="text" name="url" id="url" placeholder="http://example.tld" value="{{ form_url }}">
-            <input class="input" type="text" name="name" id="name" placeholder="cool_name (optional)" value="{{ form_name }}">
+            %if last_error:
+                <input autofocus class="input" type="text" name="url" id="url" placeholder="http://example.tld" value="{{ form_url }}">
+                <input class="input" type="text" name="name" id="name" placeholder="cool_name (optional)" value="{{ form_name }}">
+            %else:
+                <input autofocus class="input" type="text" name="url" id="url" placeholder="http://example.tld">
+                <input class="input" type="text" name="name" id="name" placeholder="cool_name (optional)">
+            %end
             <button type="submit" class="input" id="submit">Create</button>
         </form>
-    </div>
-</body>
-</html>
+%include('footer.tpl')
