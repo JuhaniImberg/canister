@@ -160,4 +160,4 @@ if __name__ == "__main__":
     debug(True)
     run(host=config["server-host"], port=config["server-port"], server=config["server"])
 
-app = bottle.default_app()
+app = default_app()
