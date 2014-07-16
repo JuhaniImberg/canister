@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from bottle import (response, request, run, template, static_file,
-                    debug, get, post, request, redirect)
+                    debug, get, post, request, redirect, default_app)
 from redis import StrictRedis
 from hashids import Hashids
 from config import config
@@ -159,3 +159,5 @@ def route_name(name):
 if __name__ == "__main__":
     debug(True)
     run(host=config["server-host"], port=config["server-port"], server=config["server"])
+
+app = bottle.default_app()
