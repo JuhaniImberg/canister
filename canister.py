@@ -133,7 +133,7 @@ def route_qr(name):
     url = redis.get("canister:links:"+name)
     if url:
         response.set_header("Content-Type", "image/svg+xml")
-        img = qrcode.make(url.decode("utf-8"),
+        img = qrcode.make(config["base-url"] + name,
                           image_factory=qrcode.image.svg.SvgPathImage)
         img._img.append(img.make_path())
         return ElementTree.tostring(img._img, encoding='utf8', method='xml')
