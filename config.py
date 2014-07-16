@@ -1,5 +1,5 @@
 config = {
-    "pretty-name": "Canister",
+    "pretty-name": "Short-Piesome",
     "server-host": "0.0.0.0",
     "server-port": 8080,
     "server": "wsgiref",

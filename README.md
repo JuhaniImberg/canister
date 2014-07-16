@@ -1,5 +1,5 @@
-canister
-========
+short-piesome
+=============
 
 A very simple URL shortening app.
 
@@ -11,8 +11,3 @@ installation & running
     pip install -r requirements.txt
     edit config.py to fit your setup
     python canister.py
-
-todo
-====
-
-    support TTL
