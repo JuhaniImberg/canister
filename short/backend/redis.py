@@ -29,9 +29,12 @@ class RedisBackend(Backend):
         while 1:
             name = hashids.encrypt(
                 self.redis.incr(self.namespace + "meta:num"))
-            if not self.redis.exists(self.furl(name)):
+            if not self.exists(name):
                 break
         return name
+
+    def exists(self, name):
+        return self.redis.exists(self.furl(name))
 
     def set(self, link):
         if self.redis.exists(self.furl(link.name)):

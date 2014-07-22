@@ -79,6 +79,8 @@ def route_add():
         return redirect("/")
     # If the name has been specified
     if name and len(name) > 0:
+        if backend.exists(name) or name == "i":
+            raise NameUnavailableError(name)
         # If the name doesn't match the regex-name report it
         if name != namere.match(name).group(0):
             raise InvalidNameError(name)
@@ -91,30 +93,6 @@ def route_add():
 
     set_cookie("url", name)
     return redirect("/")
-
-
-@app.get("/i/style")
-def route_style():
-    """
-    Returns the stylesheet
-    """
-    return static_file("style.css", root="static")
-
-
-@app.get("/i/tos")
-def route_style():
-    """
-    Returns the TOS
-    """
-    return template("tos", pretty=config["pretty-name"])
-
-
-@app.get("/i/icon")
-def route_style():
-    """
-    Returns the TOS
-    """
-    return static_file("favicon.ico", root="static")
 
 
 @app.get("/i/qr/<name>")
@@ -137,3 +115,27 @@ def route_name(name):
     link = backend.get(name)
     backend.visit(link.name)
     return redirect(link.url)
+
+
+@app.get("/i/tos")
+def route_style():
+    """
+    Returns the TOS
+    """
+    return template("tos", pretty=config["pretty-name"])
+
+
+@app.get("/i/style")
+def route_style():
+    """
+    Returns the stylesheet
+    """
+    return static_file("style.css", root="static")
+
+
+@app.get("/i/icon")
+def route_style():
+    """
+    Returns the TOS
+    """
+    return static_file("favicon.ico", root="static")

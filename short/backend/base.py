@@ -6,6 +6,9 @@ class Backend(object):
     def next_name(self):
         raise NotImplementedError()
 
+    def exists(self, name):
+        raise NotImplementedError()
+
     def set(self, link):
         raise NotImplementedError()
 
