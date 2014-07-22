@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import importlib
 
 from bottle import default_app

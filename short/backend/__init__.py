@@ -1,4 +1,4 @@
-from short.backend.redis import RedisBackend
+from short.backend.redis_backend import RedisBackend
 
 backends = {
     "redis": RedisBackend
